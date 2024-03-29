@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+.*
+*~
+*.exe
+go.sum
+env.yml
+tests
