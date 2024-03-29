@@ -1,3 +1,5 @@
+//It's out of date.Don't use it.
+
 package glm
 
 import (

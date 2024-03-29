@@ -60,8 +60,8 @@ type v4Resp struct {
 }
 
 // MakeV4Data 创建请求体
-// joinSentences 是否分句
-// callback 回调函数
+// joinSentences 是否分句，仅在SSESend中有效
+// callback 回调函数，仅在SSESend中有效
 func MakeV4Data(prompt string, parentMessage *[]map[string]interface{}, callback func(string), joinSentences bool) (data *Data) {
 	logger.Info("======MakeV4Data", "pm", parentMessage)
 	data = &Data{
@@ -81,6 +81,7 @@ func MakeV4Data(prompt string, parentMessage *[]map[string]interface{}, callback
 	return
 }
 
+// V4SSESend SSE发送请求
 func (d *Data) V4SSESend() (meta map[string]interface{}, err error) {
 	d.Stream = true
 	if d.Top_p == 0 {
@@ -140,7 +141,7 @@ func (d *Data) V4SSESend() (meta map[string]interface{}, err error) {
 }
 
 //TODO 同步发送
-//func _syncSend(tIn string) string {
+//func SyncSend(tIn string) string {
 //	Data := Data{
 //		Stream:      false,
 //		Model:       glmCfg.Model,
