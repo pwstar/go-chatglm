@@ -1,8 +1,10 @@
 package glm
 
 import (
+	"bufio"
 	"fmt"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/ssgo/httpclient"
 	"github.com/ssgo/log"
 	"github.com/ssgo/u"
 	"os"
@@ -104,4 +106,12 @@ func joinSentences(s2 string, callback func(string)) {
 		}
 	}
 
+}
+
+// SSESendRaw 可自定义的发送
+func SSESendRaw(req map[string]interface{}, url string) (reader *bufio.Reader) {
+	c := httpclient.GetClient(time.Second * 30)
+	r := c.ManualDo("POST", url, req, "Authorization", GenerateToken(glmCfg.ApiKey, 5))
+	reader = bufio.NewReader(r.Response.Body)
+	return
 }
